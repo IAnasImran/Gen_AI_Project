@@ -1,0 +1,103 @@
+===============================
+   YOUTUBE SUMMARIZER PROJECT
+        PROMPTS FILE
+===============================
+
+SECTION 1 — DATA EXTRACTION
+----------------------------
+
+1. YOUTUBE CAPTION EXTRACTION
+Extract the complete captions from this YouTube video. Preserve exact wording. 
+If any captions are missing or incomplete, note the missing parts without summarizing.
+
+2. AUDIO-TO-TEXT (WHISPER MODEL)
+Transcribe this audio into clean English with proper grammar and punctuation.  
+Remove fillers such as “uh/umm” and background noises. Output transcript only.
+
+3. MERGE CAPTIONS + TRANSCRIPT
+Combine captions and audio transcript into one unified transcript. 
+Remove repeated lines and keep the longest, most correct sentence versions.
+
+
+SECTION 2 — PREPROCESSING
+----------------------------
+
+4. TEXT CLEANING
+Clean this transcript by removing timestamps, emojis, noise, metadata, URLs, and speaker labels.  
+Return clean text without changing meaning.
+
+5. SENTENCE SEGMENTATION
+Split the transcript into grammatically correct, meaningful sentences. 
+Fix broken sentences and avoid overly long segments.
+
+6. KEYWORD EXTRACTION
+Extract 10–15 important keywords from the transcript. Avoid stopwords or irrelevant terms.
+
+7. TOPIC DETECTION
+Identify the 3–5 main topics discussed in the transcript and output them as short labels.
+
+
+SECTION 3 — TRANSFORMER MODEL SUMMARIZATION
+--------------------------------------------
+
+8. BERT EXTRACTIVE SUMMARY
+Select the top 5–7 most informative sentences from the transcript and create an extractive summary. 
+Choose only high-value factual sentences.
+
+9. PEGASUS ABSTRACTIVE SUMMARY
+Generate an abstractive summary that shortens the transcript by at least 70%.  
+Rewrite the content naturally while preserving key ideas.
+
+10. BART ABSTRACTIVE SUMMARY
+Produce a fluent, human-like summary using deep generative reasoning.  
+Do not copy; rewrite into a coherent, compressed summary.
+
+11. T5 SUMMARY
+Summarize the following text into one condensed paragraph. 
+Avoid adding information that is not in the input.
+
+12. LONGFORMER LONG TEXT SUMMARY
+For long transcripts, generate a 1–2 paragraph summary that keeps chronological flow 
+and highlights major insights.
+
+13. XSUM-STYLE SUMMARY (FOR FINE-TUNING)
+Rewrite the text into a single highly-abstractive sentence following XSum dataset style.
+
+14. CNN/DAILYMAIL-STYLE SUMMARY (FOR FINE-TUNING)
+Summarize the text into 2–4 bullet-style “news highlight” points like CNN/DailyMail dataset.
+
+
+SECTION 4 — OUTPUT FORMATS
+----------------------------
+
+15. BULLET SUMMARY
+Generate 5–10 bullet points capturing the major ideas from the transcript. 
+Each point must be one sentence and represent a key concept.
+
+16. TITLE GENERATION
+Generate a short, punchy title (under 10 words) summarizing the main idea of the video.
+
+17. DETAILED SUMMARY (USER-FRIENDLY)
+Rewrite the transcript into a clear, engaging, simplified explanation suitable for a 
+general audience with no technical background.
+
+
+SECTION 5 — EVALUATION & QUALITY
+----------------------------------
+
+18. ROUGE + BLEU EVALUATION
+Compare the model-generated summary with the reference summary and calculate:  
+ROUGE-1, ROUGE-L, and BLEU scores.  
+Return only numeric values.
+
+19. SUMMARY QUALITY CHECK
+Evaluate this summary on completeness, coherence, fluency, factual accuracy, and 
+absence of hallucination.  
+Score each category from 1 to 10.
+
+20. ERROR HANDLING
+If transcript is too short, corrupted, or incomplete, return exactly:
+"Error: Insufficient transcript data for summarization."
+Do not generate a summary.
+
+
